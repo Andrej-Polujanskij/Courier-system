@@ -1,0 +1,40 @@
+.flex{
+  display: flex;
+}
+
+.bad-request{
+  display: none;
+  padding: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: rgb(255, 6, 6);
+}
+
+.good-request{
+  display: none;
+}
+.dashboard-content{
+  padding: 20px;
+}
+table, th, td {
+  border:1px solid black;
+}
+
+.full_info_table{
+  display: none;
+}
+
+.full_info_table--inner{
+  display: flex;
+}
+.full_info_table--inner thead, .full_info_table--inner tbody {
+  width: 50%;
+}
+.full_info_table--inner thead tr{
+  display: flex;
+  flex-direction: column;
+}
+.full_info_table--inner tbody tr{
+  display: flex;
+  flex-direction: column;
+}
