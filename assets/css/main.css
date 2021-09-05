@@ -38,3 +38,7 @@ table, th, td {
   display: flex;
   flex-direction: column;
 }
+
+.parcel_worker{
+  display: none;
+}

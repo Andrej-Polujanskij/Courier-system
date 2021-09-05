@@ -6,19 +6,19 @@ include 'db_connect.php';
 function save_new_parcel()
 {
   global $conn;
-  print_r($_POST['id']);
 
-  $i = 0;
-  while ($i == 0) {
-    $ref = uniqid('', true);
-    $chk = $conn->query("SELECT * FROM parcels where reference_number = '$ref'")->num_rows;
-    if ($chk <= 0) {
-      $i = 1;
-    }
-  }
   $id = $_POST['id'];
 
   if (empty($_POST['id'])) {
+    $i = 0;
+    while ($i == 0) {
+      $ref = uniqid('', true);
+      $chk = $conn->query("SELECT * FROM parcels where reference_number = '$ref'")->num_rows;
+      if ($chk <= 0) {
+        $i = 1;
+      }
+    }
+
     $sql = "INSERT INTO parcels (reference_number, sender_name, sender_contact, recipient_name, recipient_contact, from_city_id, to_city_id, weigth_id, size_id, price, status)
   VALUES ('$ref', '{$_POST['sender_first_name']} ' '{$_POST['sender_last_name']}', '{$_POST['sender_tel_number']}', '{$_POST['recipient_first_name']} ' '{$_POST['recipient_last_name']}', '{$_POST['recipient_tel_number']}', '{$_POST['from_city']}', '{$_POST['to_city']}', '{$_POST['weight']}', '{$_POST['size']}', '{$_POST['price']}', '1')";
 
@@ -28,11 +28,13 @@ function save_new_parcel()
       echo "Error: " . $sql . "<br>" . $conn->error;
     }
   } else {
-    $sql = "UPDATE parcels ( sender_name, sender_contact, recipient_name, recipient_contact, from_city_id, to_city_id, weigth_id, size_id, price, status where id = $id)
-    VALUES ( '{$_POST['sender_first_name']} ' '{$_POST['sender_last_name']}', '{$_POST['sender_tel_number']}', '{$_POST['recipient_first_name']} ' '{$_POST['recipient_last_name']}', '{$_POST['recipient_tel_number']}', '{$_POST['from_city']}', '{$_POST['to_city']}', '{$_POST['weight']}', '{$_POST['size']}', '{$_POST['price']}', '1')";
+    $currentQuery = $conn->query("SELECT * FROM parcels where id = $id");
+    $item = $currentQuery->fetch_assoc();
+
+    $sql = "UPDATE parcels SET sender_name='{$_POST['sender_first_name']} ' '{$_POST['sender_last_name']}', sender_contact='{$_POST['sender_tel_number']}',  recipient_name='{$_POST['recipient_first_name']} ' '{$_POST['recipient_last_name']}', recipient_contact='{$_POST['recipient_tel_number']}', from_city_id='{$_POST['from_city']}', to_city_id='{$_POST['to_city']}', weigth_id='{$_POST['weight']}', size_id='{$_POST['size']}', price='{$_POST['price']}' WHERE id=$id";
 
     if ($conn->query($sql) === true) {
-      echo "$ref";
+      echo $item['reference_number'];
     } else {
       echo "Error: " . $sql . "<br>" . $conn->error;
     }
@@ -110,6 +112,21 @@ function delete_worker()
   die();
 }
 
+function parcel_worker_id()
+{
+  global $conn;
+
+  $id = $_POST['id'];
+  $sql = "UPDATE parcels SET parcel_worker_id='{$_POST['parcel_worker_id']}' WHERE id=$id";
+
+  if ($conn->query($sql) === true) {
+    return 1;
+  } else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+  }
+  die();
+}
+
 
 $action = $_GET['action'];
 if ($action == 'save_new_parcel') {
@@ -125,9 +142,9 @@ if ($action == 'get_parcel_heistory') {
 }
 
 if ($action == 'delete_parcel') {
-  $save = delete_parcel();
-  if ($save)
-    echo $save;
+  $del = delete_parcel();
+  if ($del)
+    echo $del;
 }
 
 if ($action == 'view_parcel') {
@@ -143,9 +160,15 @@ if ($action == 'save_new_worker') {
 }
 
 if ($action == 'delete_worker') {
-  $save = delete_worker();
-  if ($save)
-    echo $save;
+  $del = delete_worker();
+  if ($del)
+    echo $del;
+}
+
+if ($action == 'parcel_worker_id') {
+  $set = parcel_worker_id();
+  if ($set)
+    echo $set;
 }
 
 ob_end_flush();

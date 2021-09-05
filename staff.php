@@ -80,7 +80,7 @@ include 'includes/header.php'
             <td>
               <div class="flex">
                 <button class="view_parcel_btn" type="button" data-id="<?php echo $row['id'] ?>">All</button> ||
-                <button class="delete_worker_btn" type="butto" data-id="<?php echo $row['id'] ?>">Del</button>
+                <button class="delete_worker_btn" type="button" data-id="<?php echo $row['id'] ?>">Del</button>
               </div>
             </td>
           </tr>

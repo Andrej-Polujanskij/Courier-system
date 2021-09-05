@@ -15,7 +15,6 @@ $(document).ready(function() {
       method: 'POST',
       type: 'POST',
       success: function(resp) {
-        console.log(resp);
         alert('Data successfully saved', "success");
         setTimeout(function() {
           location.href = `complete.php?parcel_id=${resp}`
@@ -58,13 +57,13 @@ $(document).ready(function() {
       data: { id: post_id },
       method: 'POST',
       success: function(resp) {
-        if(resp==1){
-					alert("Data successfully deleted")
-					setTimeout(function(){
-						location.reload()
-					},1000)
+        if (resp == 1) {
+          alert("Data successfully deleted")
+          setTimeout(function() {
+            location.reload()
+          }, 1000)
 
-				}
+        }
       }
     })
   })
@@ -156,15 +155,52 @@ $(document).ready(function() {
       data: { id: post_id },
       method: 'POST',
       success: function(resp) {
-        if(resp==1){
-					alert("Data successfully deleted")
-					setTimeout(function(){
-						location.reload(true)
-					},1000)
+        if (resp == 1) {
+          alert("Data successfully deleted")
+          setTimeout(function() {
+            location.reload(true)
+          }, 1000)
 
-				}
+        }
       }
     })
   })
+
+  $('.add_courier').click(function() {
+    $(this).hide()
+    $(this).next().fadeIn(200)
+  })
+
+
+  $('.set_parcel_worker').click(function() {
+    let post_id_but = $(this).attr('data-id')
+    $(`#parcel_worker_id--${post_id_but}`).submit(function(e) {
+      e.preventDefault()
+      console.log('esi?');
+      let post_id = $(this).attr('data-id')
+
+      let formData = new FormData(this);
+      formData.append('id', post_id)
+
+      $.ajax({
+        url: 'function.php?action=parcel_worker_id',
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        method: 'POST',
+        type: 'POST',
+        success: function(resp) {
+          if (resp == 1) {
+            alert("Kurjeris pridetas")
+            setTimeout(function() {
+              location.reload(true)
+            }, 1000)
+          }
+        }
+      })
+    })
+  })
+
 
 })
