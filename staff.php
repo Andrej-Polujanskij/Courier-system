@@ -57,42 +57,44 @@ include 'includes/header.php'
 
 
     <div class="">
-    <table style="width:100%">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Darbotojas</th>
-          <th>Kontaktinis numeris</th>
-          <th>Darbo miestas</th>
-          <th>Darbotojo veiksmai</th>
-          <th>Darbotojo siuntos</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php
-        $qry = $conn->query("SELECT id, full_name, contact_number, city_id FROM staff ");
-        while ($row = $qry->fetch_assoc()) :
-        ?>
+      <table style="width:100%">
+        <thead>
           <tr>
-            <td><?php echo ($row['id']) ?></td>
-            <td><?php echo ($row['full_name']) ?></td>
-            <td><?php echo ($row['contact_number']) ?></td>
-            <td><?php echo ($row['city_id']) ?></td>
-            <td>
-              <div class="flex">
-                <button class="delete_worker_btn" type="button" data-id="<?php echo $row['id'] ?>">Del</button>
-              </div>
-              <td><button class="view_worker_parcels" type="button" data-id="<?php echo $row['id'] ?>">Perziureti</button></td>
-            </td>
+            <th>#</th>
+            <th>Darbotojas</th>
+            <th>Kontaktinis numeris</th>
+            <th>Darbo miestas</th>
+            <th>Darbotojo veiksmai</th>
+            <th>Darbotojo siuntos</th>
           </tr>
-        <?php endwhile; ?>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <?php
+          $qry = $conn->query("SELECT id, full_name, contact_number, city_id FROM staff ");
+          while ($row = $qry->fetch_assoc()) :
+          ?>
+            <tr>
+              <td><?php echo ($row['id']) ?></td>
+              <td><?php echo ($row['full_name']) ?></td>
+              <td><?php echo ($row['contact_number']) ?></td>
+              <td><?php echo ($row['city_id']) ?></td>
+              <td>
+                <div class="flex">
+                  <button class="delete_worker_btn" type="button" data-id="<?php echo $row['id'] ?>">Del</button>
+                </div>
+              <td><button class="view_worker_parcels" type="button" data-id="<?php echo $row['id'] ?>">Perziureti</button></td>
+              </td>
+            </tr>
+          <?php endwhile; ?>
+        </tbody>
+      </table>
 
-    <div class="full_info_table">
-      <h2>Visos darbotojo siuntos</h2>
 
-    </div>
+
+      <div class="full_info_table">
+        <h2>Visos darbotojo siuntos</h2>
+
+      </div>
 
     </div>
   </div>

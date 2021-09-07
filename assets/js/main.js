@@ -215,10 +215,10 @@ $(document).ready(function() {
       method: 'POST',
       success: function(resp) {
         resp = JSON.parse(resp)
-        // console.log(resp[0]);
-        for(let i = 0; i < resp.length; i++){
-      
-        full_info_table = `
+          // console.log(resp[0]);
+        for (let i = 0; i < resp.length; i++) {
+
+          full_info_table = `
         <table class="full_info_table--inner" style="width:100%">
         <thead>
           <tr>
@@ -248,23 +248,38 @@ $(document).ready(function() {
             <td id="status">
               ${resp[i].status}
               <button class="add_courier" type="button">Keisti statusa</button>
+              <form id="parcel_worker_id--" class="parcel_worker" data-id="">
+                <select name="parcel_worker_id" id="">
+                    <option value="">
+                          opcija 1
+                    </option>
+                </select>
+                <button data-id="" class="set_parcel_status" type="submit">Issaugoti</button>
+              </form>
             </td>
           </tr>
         </tbody>
       </table>
         `
-        $('.full_info_table').append(full_info_table)
-      }
+          $('.full_info_table').append(full_info_table)
+
+
+        }
         $('.full_info_table').fadeIn(400)
+
+        $('.add_courier').click(function() {
+          console.log('nuuu');
+          $(this).hide()
+          $(this).next().fadeIn(200)
+        })
+
+        $('.set_parcel_status').click(function() {
+          console.log('o cia kaip?');
+        })
       }
     })
 
   })
 
 
-  $('#status').on('click', '.add_courier', function() {
-    console.log('nuuu');
-    $(this).hide()
-    $(this).next().fadeIn(200)
-  })
 })
