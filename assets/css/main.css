@@ -26,6 +26,7 @@ table, th, td {
 
 .full_info_table--inner{
   display: flex;
+  margin-bottom: 20px;
 }
 .full_info_table--inner thead, .full_info_table--inner tbody {
   width: 50%;

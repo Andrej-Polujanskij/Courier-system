@@ -65,6 +65,7 @@ include 'includes/header.php'
           <th>Kontaktinis numeris</th>
           <th>Darbo miestas</th>
           <th>Darbotojo veiksmai</th>
+          <th>Darbotojo siuntos</th>
         </tr>
       </thead>
       <tbody>
@@ -79,14 +80,20 @@ include 'includes/header.php'
             <td><?php echo ($row['city_id']) ?></td>
             <td>
               <div class="flex">
-                <button class="view_parcel_btn" type="button" data-id="<?php echo $row['id'] ?>">All</button> ||
                 <button class="delete_worker_btn" type="button" data-id="<?php echo $row['id'] ?>">Del</button>
               </div>
+              <td><button class="view_worker_parcels" type="button" data-id="<?php echo $row['id'] ?>">Perziureti</button></td>
             </td>
           </tr>
         <?php endwhile; ?>
       </tbody>
     </table>
+
+    <div class="full_info_table">
+      <h2>Visos darbotojo siuntos</h2>
+
+    </div>
+
     </div>
   </div>
 </div>

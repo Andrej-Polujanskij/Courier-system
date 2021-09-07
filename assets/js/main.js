@@ -109,9 +109,9 @@ $(document).ready(function() {
             <td>${resp.recipient_contact}</td>
             <td>${resp.from_city_id}</td>
             <td>${resp.to_city_id}</td>
+            <td>${resp.status}</td>
             <td>${resp.weigth_id}</td>
             <td>${resp.size_id}</td>
-            <td>${resp.status}</td>
             <td>${resp.price}</td>
           </tr>
         </tbody>
@@ -167,6 +167,7 @@ $(document).ready(function() {
   })
 
   $('.add_courier').click(function() {
+    console.log('nuuu');
     $(this).hide()
     $(this).next().fadeIn(200)
   })
@@ -202,5 +203,68 @@ $(document).ready(function() {
     })
   })
 
+  $('.view_worker_parcels').click(function() {
+    let post_id = $(this).attr('data-id')
+    let full_info_table
+    $('.full_info_table').fadeOut(30)
+    $('.full_info_table--inner').remove()
 
+    $.ajax({
+      url: 'function.php?action=view_worker_parcels',
+      data: { id: post_id },
+      method: 'POST',
+      success: function(resp) {
+        resp = JSON.parse(resp)
+        // console.log(resp[0]);
+        for(let i = 0; i < resp.length; i++){
+      
+        full_info_table = `
+        <table class="full_info_table--inner" style="width:100%">
+        <thead>
+          <tr>
+            <th>Siuntos numeris</th>
+            <th>Siuntejo vardas</th>
+            <th>Siuntejo tel.</th>
+            <th>Gavejo vardas</th>
+            <th>Gavejo tel.</th>
+            <th>Issiuntimo miestas</th>
+            <th>Gavimo miestas</th>
+            <th>Svoris</th>
+            <th>Dydis</th>
+            <th>Statusas</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>${resp[i].reference_number}</td>
+            <td>${resp[i].sender_name}</td>
+            <td>${resp[i].sender_contact}</td>
+            <td>${resp[i].recipient_name}</td>
+            <td>${resp[i].recipient_contact}</td>
+            <td>${resp[i].from_city_id}</td>
+            <td>${resp[i].to_city_id}</td>
+            <td>${resp[i].weigth_id}</td>
+            <td>${resp[i].size_id}</td>
+            <td id="status">
+              ${resp[i].status}
+              <button class="add_courier" type="button">Keisti statusa</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+        `
+        $('.full_info_table').append(full_info_table)
+      }
+        $('.full_info_table').fadeIn(400)
+      }
+    })
+
+  })
+
+
+  $('#status').on('click', '.add_courier', function() {
+    console.log('nuuu');
+    $(this).hide()
+    $(this).next().fadeIn(200)
+  })
 })

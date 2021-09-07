@@ -82,6 +82,20 @@ function view_parcel()
   die();
 }
 
+function view_worker_parcels()
+{
+  global $conn;
+
+  $id = $_POST['id'];
+  $parcel = $conn->query("SELECT * FROM parcels where parcel_worker_id = '$id'");
+  $data = array();
+  while ($row = $parcel->fetch_assoc()) :
+    $data[] = $row;
+  endwhile;
+  return json_encode($data);
+  die();
+}
+
 function save_new_worker()
 {
   global $conn;
@@ -149,6 +163,12 @@ if ($action == 'delete_parcel') {
 
 if ($action == 'view_parcel') {
   $get = view_parcel();
+  if ($get)
+    echo $get;
+}
+
+if ($action == 'view_worker_parcels') {
+  $get = view_worker_parcels();
   if ($get)
     echo $get;
 }
