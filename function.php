@@ -141,6 +141,21 @@ function parcel_worker_id()
   die();
 }
 
+function change_parcel_status()
+{
+  global $conn;
+
+  $id = $_POST['id'];
+  $sql = "UPDATE parcels SET status='{$_POST['status']}' WHERE id=$id";
+
+  if ($conn->query($sql) === true) {
+    return 1;
+  } else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+  }
+  die();
+}
+
 
 $action = $_GET['action'];
 if ($action == 'save_new_parcel') {
@@ -189,6 +204,12 @@ if ($action == 'parcel_worker_id') {
   $set = parcel_worker_id();
   if ($set)
     echo $set;
+}
+
+if ($action == 'change_parcel_status') {
+  $change = change_parcel_status();
+  if ($change)
+    echo $change;
 }
 
 ob_end_flush();

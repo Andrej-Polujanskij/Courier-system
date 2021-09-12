@@ -248,13 +248,22 @@ $(document).ready(function() {
             <td id="status">
               ${resp[i].status}
               <button class="add_courier" type="button">Keisti statusa</button>
-              <form id="parcel_worker_id--" class="parcel_worker" data-id="">
-                <select name="parcel_worker_id" id="">
-                    <option value="">
+              <form id="" class="parcel_worker" data-id="">
+                <select name="status" id="new_status">
+                    <option value="1">
                           opcija 1
                     </option>
+                    <option value="2">
+                          opcija 2
+                    </option>
+                    <option value="3">
+                          opcija 3
+                    </option>
+                    <option value="4">
+                          opcija 4
+                    </option>
                 </select>
-                <button data-id="" class="set_parcel_status" type="submit">Issaugoti</button>
+                <button data-id="${resp[i].id}" class="set_parcel_status" type="submit">Issaugoti</button>
               </form>
             </td>
           </tr>
@@ -273,8 +282,27 @@ $(document).ready(function() {
           $(this).next().fadeIn(200)
         })
 
-        $('.set_parcel_status').click(function() {
-          console.log('o cia kaip?');
+        $('.set_parcel_status').click(function(e) {
+          e.preventDefault()
+          let post_id = $(this).attr('data-id')
+          let new_status = $('#new_status').val()
+
+          $.ajax({
+            url: 'function.php?action=change_parcel_status',
+            data: {id: post_id, status: new_status},
+            method: 'POST',
+            success: function(resp) {
+              console.log(resp)
+              if (resp == 1) {
+                alert("Status successfully updated")
+                setTimeout(function() {
+                  location.reload()
+                }, 1000)
+      
+              }
+            }
+          })
+
         })
       }
     })

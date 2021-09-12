@@ -1,6 +1,19 @@
+html{
+  font-family: 'Roboto',sans-serif;
+}
+
+body{
+  min-height: 100vh;
+  max-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .flex{
   display: flex;
 }
+/* light blue
+ #8794be  */
 
 .bad-request{
   display: none;
@@ -42,4 +55,9 @@ table, th, td {
 
 .parcel_worker{
   display: none;
+}
+
+footer{
+  background-color: #8794be;
+  margin-top: auto;
 }
