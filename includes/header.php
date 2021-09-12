@@ -16,14 +16,14 @@
 
   <header>
     <?php $home_page = $_SERVER['SCRIPT_NAME'];
-    print_r($home_page)
-      // if(isset($home_page)){
-      //   print_r('homepage');
-      // }
-    
+      if(!strpos($home_page, 'index.php')){
+       ?>
+           <button type="button" class="">
+            ATGAL
+          </button>
+       <?php
+      }
     ?>
-    <button type="button" class="">
-      ATGAL
-    </button>
+
   </header>
   <div class="container-fluid"></div>
