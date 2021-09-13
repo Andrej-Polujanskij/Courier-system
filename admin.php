@@ -1,8 +1,11 @@
 <?php
-	include 'includes/header.php' 
+include 'includes/header.php'
 ?>
-<body>
-  <h1>Dashboard</h1>
+
+<div class="aside">
+  <?php
+  include 'includes/back_btn.php'
+  ?>
 
   <div class="">
     <ul>
@@ -18,6 +21,13 @@
   <div class="flex">
     <a href="./index.php">Namo</a>
   </div>
-  <?php
-	include 'includes/footer.php' 
+
+</div>
+
+<div class="dashboard">
+  <h1>Dashboard</h1>
+</div>
+
+<?php
+include 'includes/footer.php'
 ?>
