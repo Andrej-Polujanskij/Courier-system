@@ -7,18 +7,26 @@ include 'includes/header.php'
   <?php
   include 'includes/back_btn.php'
   ?>
-  <div class="">
-    <a href="./user.php">Vartuotoju puslapis</a>
-  </div>
-  <div class="">
-    <a href="./admin.php">Admin page</a>
-  </div>
+  <nav>
+    <ul class="menu">
+      <li>
+        <a href="./user.php">Klientams</a>
+      </li>
+      <li>
+        <a href="./admin.php">Kurjeriams</a>
+      </li>
+    </ul>
+  </nav>
+
 </div>
 
 <div class="dashboard">
-  <h1>Hello world</h1>
+  <div class="">
+    <h1>Sveiki uzeja i kurjerių valdymo sistema</h1>
+    <img src="./assets/img/car2.png" alt="city icon">
+  </div>
 
-  <img src="./assets/img/car2.png" alt="city icon">
+
 
   <?php
   // include 'assets/img/city.svg'

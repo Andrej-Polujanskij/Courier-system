@@ -43,9 +43,32 @@ main {
     display: flex;
 }
 
+nav ul.menu {
+    padding: 50px 0;
+}
+
+nav ul.menu li {
+    margin: 20px 0;
+}
+
+nav ul.menu li a {
+    text-decoration: none;
+    font-size: 18px;
+    color: black;
+    font-weight: 600;
+    border-bottom: 2px solid #8794be;
+    transition: ease 0.2s;
+}
+
+nav ul.menu li a:hover{
+    border-bottom: none;
+    color: #8794be;
+}
+
 
 /* light blue
  #8794be  */
+
 
 /* main green
  #005d3b  */
@@ -105,13 +128,15 @@ footer {
     margin-top: auto;
 }
 
-.logo{
+.logo {
     align-items: center;
     justify-content: space-evenly;
 }
-.logo-img{
+
+.logo-img {
     max-width: 36px;
 }
-.logo-text{
+
+.logo-text {
     max-width: 200px;
 }
