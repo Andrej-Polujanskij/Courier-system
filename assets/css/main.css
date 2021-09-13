@@ -140,3 +140,20 @@ footer {
 .logo-text {
     max-width: 200px;
 }
+
+.dashboard-title h1{
+  font-size: 44px;
+  line-height: 1;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.dashboard-title h3 {
+  font-size: 20px;
+  line-height: 1;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+.dashboard-main-img{
+  max-width: 200px;
+}
