@@ -1,29 +1,66 @@
 console.log('veikia');
 
-$(document).ready(function() {
-  $('#new_parcel').submit(function(e) {
-    e.preventDefault()
 
-    let formData = new FormData(this);
 
-    $.ajax({
-      url: 'function.php?action=save_new_parcel',
-      data: formData,
-      cache: false,
-      contentType: false,
-      processData: false,
-      method: 'POST',
-      type: 'POST',
-      success: function(resp) {
-        alert('Data successfully saved', "success");
-        setTimeout(function() {
-          location.href = `complete.php?parcel_id=${resp}`
-        }, 1000)
-      }
+$(document).ready(function () {
+  var forms = document.querySelectorAll('.needs-validation')
+
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+          console.log('blogai')
+        } else {
+          event.preventDefault()
+          console.log('cia toliau');
+
+          let formData = new FormData(this);
+          $.ajax({
+            url: 'function.php?action=save_new_parcel',
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            method: 'POST',
+            type: 'POST',
+            success: function (resp) {
+              alert('Data successfully saved', "success");
+              setTimeout(function () {
+                location.href = `complete.php?parcel_id=${resp}`
+              }, 1000)
+            }
+          })
+        }
+        form.classList.add('was-validated')
+      }, false)
     })
-  })
 
-  $('#parcel_search_btn').click(function() {
+
+  // $('#new_parcel').submit(function (event) {
+  //   event.preventDefault()
+  //   console.log('cia toliau');
+
+  //   let formData = new FormData(this);
+  //   $.ajax({
+  //     url: 'function.php?action=save_new_parcel',
+  //     data: formData,
+  //     cache: false,
+  //     contentType: false,
+  //     processData: false,
+  //     method: 'POST',
+  //     type: 'POST',
+  //     success: function (resp) {
+  //       alert('Data successfully saved', "success");
+  //       setTimeout(function () {
+  //         location.href = `complete.php?parcel_id=${resp}`
+  //       }, 1000)
+  //     }
+  //   })
+  // })
+
+  $('#parcel_search_btn').click(function () {
     $('.bad-request').fadeOut(10)
     $('.good-request').fadeOut(10)
     let tracking_num = $('#parcel_search').val()
@@ -32,7 +69,7 @@ $(document).ready(function() {
         url: 'function.php?action=get_parcel_heistory',
         data: { parcel_search: tracking_num },
         method: 'POST',
-        success: function(resp) {
+        success: function (resp) {
           if (resp == 2) {
             $('.bad-request').fadeIn(300)
           } else {
@@ -49,17 +86,17 @@ $(document).ready(function() {
     }
   })
 
-  $('.delete_parcel_btn').click(function() {
+  $('.delete_parcel_btn').click(function () {
     let post_id = $(this).attr('data-id')
 
     $.ajax({
       url: 'function.php?action=delete_parcel',
       data: { id: post_id },
       method: 'POST',
-      success: function(resp) {
+      success: function (resp) {
         if (resp == 1) {
           alert("Data successfully deleted")
-          setTimeout(function() {
+          setTimeout(function () {
             location.reload()
           }, 1000)
 
@@ -68,7 +105,7 @@ $(document).ready(function() {
     })
   })
 
-  $('.view_parcel_btn').click(function() {
+  $('.view_parcel_btn').click(function () {
     let post_id = $(this).attr('data-id')
     let full_info_table
     $('.full_info_table').fadeOut(30)
@@ -78,7 +115,7 @@ $(document).ready(function() {
       url: 'function.php?action=view_parcel',
       data: { id: post_id },
       method: 'POST',
-      success: function(resp) {
+      success: function (resp) {
         resp = JSON.parse(resp)
         console.log(resp);
         full_info_table = `
@@ -124,7 +161,7 @@ $(document).ready(function() {
 
   })
 
-  $('#new_worker').submit(function(e) {
+  $('#new_worker').submit(function (e) {
     e.preventDefault()
 
     let formData = new FormData(this);
@@ -137,27 +174,27 @@ $(document).ready(function() {
       processData: false,
       method: 'POST',
       type: 'POST',
-      success: function(resp) {
+      success: function (resp) {
         console.log(resp);
         alert('Data successfully saved', "success");
-        setTimeout(function() {
+        setTimeout(function () {
           location.reload(true)
         }, 1000)
       }
     })
   })
 
-  $('.delete_worker_btn').click(function() {
+  $('.delete_worker_btn').click(function () {
     let post_id = $(this).attr('data-id')
 
     $.ajax({
       url: 'function.php?action=delete_worker',
       data: { id: post_id },
       method: 'POST',
-      success: function(resp) {
+      success: function (resp) {
         if (resp == 1) {
           alert("Data successfully deleted")
-          setTimeout(function() {
+          setTimeout(function () {
             location.reload(true)
           }, 1000)
 
@@ -166,16 +203,16 @@ $(document).ready(function() {
     })
   })
 
-  $('.add_courier').click(function() {
+  $('.add_courier').click(function () {
     console.log('nuuu');
     $(this).hide()
     $(this).next().fadeIn(200)
   })
 
 
-  $('.set_parcel_worker').click(function() {
+  $('.set_parcel_worker').click(function () {
     let post_id_but = $(this).attr('data-id')
-    $(`#parcel_worker_id--${post_id_but}`).submit(function(e) {
+    $(`#parcel_worker_id--${post_id_but}`).submit(function (e) {
       e.preventDefault()
       console.log('esi?');
       let post_id = $(this).attr('data-id')
@@ -191,10 +228,10 @@ $(document).ready(function() {
         processData: false,
         method: 'POST',
         type: 'POST',
-        success: function(resp) {
+        success: function (resp) {
           if (resp == 1) {
             alert("Kurjeris pridetas")
-            setTimeout(function() {
+            setTimeout(function () {
               location.reload(true)
             }, 1000)
           }
@@ -203,7 +240,7 @@ $(document).ready(function() {
     })
   })
 
-  $('.view_worker_parcels').click(function() {
+  $('.view_worker_parcels').click(function () {
     let post_id = $(this).attr('data-id')
     let full_info_table
     $('.full_info_table').fadeOut(30)
@@ -213,9 +250,9 @@ $(document).ready(function() {
       url: 'function.php?action=view_worker_parcels',
       data: { id: post_id },
       method: 'POST',
-      success: function(resp) {
+      success: function (resp) {
         resp = JSON.parse(resp)
-          // console.log(resp[0]);
+        // console.log(resp[0]);
         for (let i = 0; i < resp.length; i++) {
 
           full_info_table = `
@@ -276,29 +313,29 @@ $(document).ready(function() {
         }
         $('.full_info_table').fadeIn(400)
 
-        $('.add_courier').click(function() {
+        $('.add_courier').click(function () {
           console.log('nuuu');
           $(this).hide()
           $(this).next().fadeIn(200)
         })
 
-        $('.set_parcel_status').click(function(e) {
+        $('.set_parcel_status').click(function (e) {
           e.preventDefault()
           let post_id = $(this).attr('data-id')
           let new_status = $('#new_status').val()
 
           $.ajax({
             url: 'function.php?action=change_parcel_status',
-            data: {id: post_id, status: new_status},
+            data: { id: post_id, status: new_status },
             method: 'POST',
-            success: function(resp) {
+            success: function (resp) {
               console.log(resp)
               if (resp == 1) {
                 alert("Status successfully updated")
-                setTimeout(function() {
+                setTimeout(function () {
                   location.reload()
                 }, 1000)
-      
+
               }
             }
           })
@@ -310,9 +347,40 @@ $(document).ready(function() {
   })
 
 
-  $('.back_btn').click(function(){
+  $('.back_btn').click(function () {
     window.history.back();
   })
 
+  $('.form-select').change(function () {
+    $('#price').val(
+
+      5 +
+      (parseInt($('.form-select-weight').val()) * 
+      5) +
+      (parseInt($('.form-select-size').val()) * 
+      5 )
+    ) 
+  })
+
+  if($('#new_parcel').length != 0) {
+
+    if($('.new_parcel_id').val() == '') {
+      function setValues() {
+        $('#price').val(
+          5 +
+          (parseInt($('.form-select-weight').val()) * 
+          5) +
+          (parseInt($('.form-select-size').val()) * 
+          5 )
+        )
+      }
+    
+      setValues()
+    }
+  
+  }
+
+
 
 })
+

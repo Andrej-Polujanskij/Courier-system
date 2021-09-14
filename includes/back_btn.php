@@ -3,7 +3,8 @@
   if (!strpos($home_page, 'index.php')) {
   ?>
     <button type="button" class="">
-      ATGAL
+    <span>&#8678; </span>
+     ATGAL
     </button>
   <?php
   }
