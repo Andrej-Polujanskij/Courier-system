@@ -3,6 +3,102 @@ console.log('veikia');
 
 
 $(document).ready(function () {
+  function citySelectOptions(id) {
+    if (id !== '') {
+      switch (id) {
+        case '1':
+          return 'Vilnius';
+          break;
+        case '2':
+          return 'Kaunas';
+          break;
+        case '3':
+          return 'Klaipėda';
+          break;
+        case '4':
+          return 'Šiauliai';
+          break;
+        case '5':
+          return 'Panevėžys';
+          break;
+        case '6':
+          return 'Alytus';
+          break;
+        case '7':
+          return 'Marijampolė';
+          break;
+        case '8':
+          return 'Mažeikiai';
+          break;
+        case '9':
+          return 'Jonava';
+          break;
+        case '10':
+          return 'Utena';
+          break;
+        default:
+          return;
+      }
+    }
+  }
+  function getParcelStatus(id) {
+    if (id !== '') {
+      switch (id) {
+        case '1':
+          return 'Priimta';
+          break;
+        case '2':
+          return 'Paskirstymo vietoje';
+          break;
+        case '3':
+          return 'Kurjerio vežama';
+          break;
+        case '4':
+          return 'Pristatyta';
+          break;
+        default:
+          return 'Statusas nerastas';
+      }
+    } else {
+      return 'Statusas nerastas';
+    }
+  }
+  function getWeigtOptions(id) {
+    if (id !== '') {
+      switch (id) {
+        case '1':
+          return 'Iki 10kg';
+          break;
+        case '2':
+          return 'Iki 20kg';
+          break;
+        case '3':
+          return 'Iki 30kg';
+          break;
+        default:
+          return 'Statusas nerastas';
+      }
+    } 
+  }
+  function getSizeOptions(id) {
+    if (id !== '') {
+      switch (id) {
+        case '1':
+          return '0.5m*0.5m';
+          break;
+        case '2':
+          return '1.0m*1.0m';
+          break;
+        case '3':
+          return '1.5m*1.5m';
+          break;
+        default:
+          return 'Statusas nerastas';
+      }
+    } 
+  }
+
+
   var forms = document.querySelectorAll('.needs-validation')
 
   Array.prototype.slice.call(forms)
@@ -11,11 +107,11 @@ $(document).ready(function () {
         if (!form.checkValidity()) {
           event.preventDefault()
           event.stopPropagation()
-          console.log('blogai')
+          
         } else {
           event.preventDefault()
-          console.log('cia toliau');
 
+        
           let formData = new FormData(this);
           $.ajax({
             url: 'function.php?action=save_new_parcel',
@@ -26,10 +122,13 @@ $(document).ready(function () {
             method: 'POST',
             type: 'POST',
             success: function (resp) {
-              alert('Data successfully saved', "success");
-              setTimeout(function () {
-                location.href = `complete.php?parcel_id=${resp}`
-              }, 1000)
+              myModal.toggle()
+              var modalOnClose = document.getElementById('exampleModal')
+              modalOnClose.addEventListener('hide.bs.modal', function (event) {
+                setTimeout(function () {
+                  location.href = `complete.php?parcel_id=${resp}`
+                }, 500)
+              })
             }
           })
         }
@@ -60,6 +159,8 @@ $(document).ready(function () {
   //   })
   // })
 
+
+
   $('#parcel_search_btn').click(function () {
     $('.bad-request').fadeOut(10)
     $('.good-request').fadeOut(10)
@@ -86,24 +187,81 @@ $(document).ready(function () {
     }
   })
 
+
+
+  if ($('#exampleModal').length != 0) {
+    var myModal = new bootstrap.Modal(document.getElementById('exampleModal'))
+  }
+  if ($('#exampleModal2').length != 0) {
+    var myModal2 = new bootstrap.Modal(document.getElementById('exampleModal2'))
+  }
+
   $('.delete_parcel_btn').click(function () {
     let post_id = $(this).attr('data-id')
+    myModal.toggle()
 
-    $.ajax({
-      url: 'function.php?action=delete_parcel',
-      data: { id: post_id },
-      method: 'POST',
-      success: function (resp) {
-        if (resp == 1) {
-          alert("Data successfully deleted")
-          setTimeout(function () {
-            location.reload()
-          }, 1000)
+    $('.modal-cta').click(function () {
+      myModal.hide()
 
+      $.ajax({
+        url: 'function.php?action=delete_parcel',
+        data: { id: post_id },
+        method: 'POST',
+        success: function (resp) {
+          if (resp == 1) {
+
+            myModal2.show()
+
+            var modalOnClose = document.getElementById('exampleModal2')
+            modalOnClose.addEventListener('hide.bs.modal', function (event) {
+              setTimeout(function () {
+                location.reload()
+              }, 500)
+            })
+
+          }
         }
-      }
+      })
     })
   })
+
+  $('.set_parcel_worker').click(function () {
+    let post_id_but = $(this).attr('data-id')
+    $(`#parcel_worker_id--${post_id_but}`).submit(function (e) {
+      e.preventDefault()
+      console.log('esi?');
+      let post_id = $(this).attr('data-id')
+
+      let formData = new FormData(this);
+      formData.append('id', post_id)
+
+      $.ajax({
+        url: 'function.php?action=parcel_worker_id',
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        method: 'POST',
+        type: 'POST',
+        success: function (resp) {
+          if (resp == 1) {
+            myModal2.show()
+
+            $('.modal-body-courier').html('Kurjeris sekmingai pridetas')
+
+            var modalOnClose = document.getElementById('exampleModal2')
+            modalOnClose.addEventListener('hide.bs.modal', function (event) {
+              setTimeout(function () {
+                location.reload()
+              }, 500)
+            })
+          }
+        }
+      })
+    })
+  })
+
+
 
   $('.view_parcel_btn').click(function () {
     let post_id = $(this).attr('data-id')
@@ -117,9 +275,9 @@ $(document).ready(function () {
       method: 'POST',
       success: function (resp) {
         resp = JSON.parse(resp)
-        console.log(resp);
+        // console.log(resp);
         full_info_table = `
-        <table class="full_info_table--inner" style="width:100%">
+        <table class="full_info_table--inner table table-striped" style="width:100%">
         <thead>
           <tr>
             <th>#</th>
@@ -144,17 +302,20 @@ $(document).ready(function () {
             <td>${resp.sender_contact}</td>
             <td>${resp.recipient_name}</td>
             <td>${resp.recipient_contact}</td>
-            <td>${resp.from_city_id}</td>
-            <td>${resp.to_city_id}</td>
-            <td>${resp.status}</td>
-            <td>${resp.weigth_id}</td>
-            <td>${resp.size_id}</td>
+            <td>${citySelectOptions(resp.from_city_id)}</td>
+            <td>${citySelectOptions(resp.to_city_id)}</td>
+            <td>${getParcelStatus(resp.status)}</td>
+            <td>${getWeigtOptions(resp.weigth_id)}</td>
+            <td>${getSizeOptions(resp.size_id)}</td>
             <td>${resp.price}</td>
           </tr>
         </tbody>
       </table>
         `
-        $('.full_info_table').append(full_info_table)
+        setTimeout(function () {
+          $('.full_info_table').append(full_info_table)
+        }, 100)
+
         $('.full_info_table').fadeIn(400)
       }
     })
@@ -204,41 +365,12 @@ $(document).ready(function () {
   })
 
   $('.add_courier').click(function () {
-    console.log('nuuu');
     $(this).hide()
     $(this).next().fadeIn(200)
   })
 
 
-  $('.set_parcel_worker').click(function () {
-    let post_id_but = $(this).attr('data-id')
-    $(`#parcel_worker_id--${post_id_but}`).submit(function (e) {
-      e.preventDefault()
-      console.log('esi?');
-      let post_id = $(this).attr('data-id')
 
-      let formData = new FormData(this);
-      formData.append('id', post_id)
-
-      $.ajax({
-        url: 'function.php?action=parcel_worker_id',
-        data: formData,
-        cache: false,
-        contentType: false,
-        processData: false,
-        method: 'POST',
-        type: 'POST',
-        success: function (resp) {
-          if (resp == 1) {
-            alert("Kurjeris pridetas")
-            setTimeout(function () {
-              location.reload(true)
-            }, 1000)
-          }
-        }
-      })
-    })
-  })
 
   $('.view_worker_parcels').click(function () {
     let post_id = $(this).attr('data-id')
@@ -256,7 +388,7 @@ $(document).ready(function () {
         for (let i = 0; i < resp.length; i++) {
 
           full_info_table = `
-        <table class="full_info_table--inner" style="width:100%">
+        <table class="full_info_table--inner table table-striped" style="width:100%">
         <thead>
           <tr>
             <th>Siuntos numeris</th>
@@ -351,35 +483,45 @@ $(document).ready(function () {
     window.history.back();
   })
 
-  $('.form-select').change(function () {
+
+
+  $('.select-for-price').change(function () {
+
     $('#price').val(
 
       5 +
-      (parseInt($('.form-select-weight').val()) * 
-      5) +
-      (parseInt($('.form-select-size').val()) * 
-      5 )
-    ) 
+      (parseInt($('.form-select-weight').val()) *
+        5) +
+      (parseInt($('.form-select-size').val()) *
+        5)
+    )
   })
 
-  if($('#new_parcel').length != 0) {
 
-    if($('.new_parcel_id').val() == '') {
+  if ($('#new_parcel').length != 0) {
+
+    if ($('.new_parcel_id').val() == '') {
       function setValues() {
         $('#price').val(
           5 +
-          (parseInt($('.form-select-weight').val()) * 
-          5) +
-          (parseInt($('.form-select-size').val()) * 
-          5 )
+          (parseInt($('.form-select-weight').val()) *
+            5) +
+          (parseInt($('.form-select-size').val()) *
+            5)
         )
       }
-    
+
       setValues()
     }
-  
+
   }
 
+  // var myModal = document.getElementById('exampleModal')
+  // var myInput = document.getElementById('myButton')
+
+  // myModal.addEventListener('shown.bs.modal', function () {
+  //   myInput.focus()
+  // })
 
 
 })

@@ -1,30 +1,39 @@
 <?php
 include 'db_connect.php';
-include 'includes/header.php'
+include 'shared_functions.php';
+include 'includes/header.php';
 ?>
 
-<div class="flex">
-  <div class="">
-    <h1>Visos siuntos</h1>
 
+<div class="aside">
+  <?php
+  include 'includes/back_btn.php'
+  ?>
+
+  <nav>
+    <ul class="menu">
+      <li>
+        <a href="./new_parcel.php">Nauja siuntą</a>
+      </li>
+      <li>
+        <a href="./staff.php">Darbotojai</a>
+      </li>
+      <li>
+        <a href="./index.php">Namo</a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+<div class="dashboard">
+  <div class="dashboard-user-complete">
     <div class="">
-      <ul>
-        <li>
-          <a href="./all_parcels.php">Visos siuntos</a>
-        </li>
-        <li>
-          <a href="./staff.php">Darbotojai</a>
-        </li>
-      </ul>
+      <h1>Visos siuntos</h1>
+      <hr>
     </div>
 
-    <div class="flex">
-      <a href="./index.php">Namo</a>
-    </div>
-  </div>
 
-  <div class="dashboard-content">
-    <table style="width:100%">
+    <table style="width:100%" class="table table-striped">
       <thead>
         <tr>
           <th>#</th>
@@ -46,12 +55,20 @@ include 'includes/header.php'
             <td><?php echo ($row['reference_number']) ?></td>
             <td><?php echo ($row['sender_name']) ?></td>
             <td><?php echo ($row['recipient_name']) ?></td>
-            <td><?php echo ($row['status']) ?></td>
             <td>
-              <div class="flex">
-                <button class="view_parcel_btn" type="button" data-id="<?php echo $row['id'] ?>">All</button> ||
-                <a class="update_parcel_btn" type="button" href="./new_parcel.php?id=<?php echo $row['id'] ?>">update</a>
-                <button class="delete_parcel_btn" type="button" data-id="<?php echo $row['id'] ?>">Del</button>
+              <?php echo getParcelStatus($row['status']); ?>
+            </td>
+            <td>
+              <div class="flex justify-evently">
+                <button title="Peržiūrėti" class="view_parcel_btn btn btn-success" type="button" data-id="<?php echo $row['id'] ?>">
+                  <img class="max-w-20" src="./assets/img/eye.png" alt="">
+                </button>
+                <a title="Redaguoti" class="update_parcel_btn btn btn-warning" type="button" href="./new_parcel.php?id=<?php echo $row['id'] ?>">
+                  <img class="max-w-20" src="./assets/img/update.png" alt="">
+                </a>
+                <button title="Ištrinti" class="delete_parcel_btn btn btn-danger" type="button" data-id="<?php echo $row['id'] ?>">
+                  <img class="max-w-20" src="./assets/img/bin.png" alt="">
+                </button>
               </div>
             </td>
             <td>
@@ -60,13 +77,13 @@ include 'includes/header.php'
                 $from_city_id = $row['from_city_id'];
                 $qry2 = $conn->query("SELECT id, full_name  FROM staff where city_id = $from_city_id");
               ?>
-                <button class="add_courier" type="button">Prideti kurjeri</button>
+                <button class="add_courier btn btn-main" type="button">Prideti kurjeri</button>
 
                 <?php
                 if ($qry2->num_rows > 0) {
                 ?>
                   <form id="parcel_worker_id--<?php echo $row['id'] ?>" class="parcel_worker" data-id="<?php echo $row['id'] ?>">
-                    <select name="parcel_worker_id" id="">
+                    <select class="form-select" name="parcel_worker_id" id="">
                       <?php
                       while ($row2 = $qry2->fetch_assoc()) :
                       ?>
@@ -75,12 +92,12 @@ include 'includes/header.php'
                         </option>
                       <?php endwhile; ?>
                     </select>
-                    <button data-id="<?php echo $row['id'] ?>" class="set_parcel_worker"  type="submit">Issaugoti</button>
+                    <button data-id="<?php echo $row['id'] ?>" class="set_parcel_worker btn btn-main mt-1" type="submit">Issaugoti</button>
                   </form>
                 <?php
                 } else {
                 ?>
-                  <div class="parcel_worker">
+                  <div class="parcel_worker ">
                     Kurjerio is sito miesto nera
                   </div>
                 <?php
@@ -103,11 +120,50 @@ include 'includes/header.php'
 
     <div class="full_info_table">
       <h2>Visa siuntos informacija</h2>
+      <hr>
 
     </div>
 
   </div>
+
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Dėmesio!</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Uždaryti"></button>
+        </div>
+        <div class="modal-body fw-bold">
+          At rikrai noryte ištrintį siuntą?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary modal-close" data-bs-dismiss="modal">Uždaryti</button>
+          <button type="button" class="btn btn-danger modal-cta">Ištrinti</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Dėmesio!</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Uždaryti"></button>
+      </div>
+      <div class="modal-body fw-bold modal-body-courier">
+        Siunta sekmingai istrinta
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary modal-close" data-bs-dismiss="modal">Uždaryti</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
 
 
 <?php

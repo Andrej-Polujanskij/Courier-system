@@ -27,7 +27,7 @@ include 'includes/header.php'
       <h1>Registruoti ir sekti siuntas dabar dar patogiau!</h1>
       <ul>
         <li>1: Pasirinkite jus dominancia paslauga</li>
-        <li>2: Pirmin!</li>
+        <li>2: Pirmyn!</li>
       </ul>
     </div>
 
