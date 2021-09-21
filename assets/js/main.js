@@ -1,6 +1,3 @@
-console.log('veikia');
-
-
 
 $(document).ready(function () {
   function citySelectOptions(id) {
@@ -179,7 +176,6 @@ $(document).ready(function () {
     $('.bad-request').fadeOut(10)
     $('.good-request').fadeOut(10)
     let tracking_num = $('#parcel_search').val().replace(/\s/g, "")
-    console.log(tracking_num);
     if (tracking_num != '') {
       $.ajax({
         url: 'function.php?action=get_parcel_heistory',
@@ -276,7 +272,6 @@ $(document).ready(function () {
     let post_id_but = $(this).attr('data-id')
     $(`#parcel_worker_id--${post_id_but}`).submit(function (e) {
       e.preventDefault()
-      console.log('esi?');
       let post_id = $(this).attr('data-id')
 
       let formData = new FormData(this);
@@ -321,7 +316,6 @@ $(document).ready(function () {
       method: 'POST',
       success: function (resp) {
         resp = JSON.parse(resp)
-        // console.log(resp);
         full_info_table = `
         <table class="full_info_table--inner table table-striped" style="width:100%">
         <thead>
@@ -387,7 +381,6 @@ $(document).ready(function () {
       method: 'POST',
       success: function (resp) {
         resp = JSON.parse(resp)
-        // console.log(resp[0]);
         for (let i = 0; i < resp.length; i++) {
 
           full_info_table = `
@@ -456,7 +449,6 @@ $(document).ready(function () {
         $('.full_info_table').fadeIn(400)
 
         $('.add_courier').click(function () {
-          console.log('nuuu');
           $(this).hide()
           $(this).next().fadeIn(200)
         })
@@ -471,7 +463,6 @@ $(document).ready(function () {
             data: { id: post_id, status: new_status },
             method: 'POST',
             success: function (resp) {
-              console.log(resp)
               if (resp == 1) {
 
                 $('.modal-body-courier').html('Siuntos statusas sekmingai atnaujintas')
