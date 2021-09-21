@@ -16,7 +16,7 @@ include 'includes/header.php';
         <a href="./new_parcel.php">Nauja siuntą</a>
       </li>
       <li>
-        <a href="./staff.php">Darbotojai</a>
+        <a href="./staff.php">Kurjeriai</a>
       </li>
       <li>
         <a href="./index.php">Namo</a>
@@ -122,6 +122,10 @@ include 'includes/header.php';
       <h2>Visa siuntos informacija</h2>
       <hr>
 
+    </div>
+
+    <div class="track-img">
+      <img src="./assets/img/parcel-icon.png" alt="track">
     </div>
 
   </div>

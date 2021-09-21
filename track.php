@@ -75,15 +75,15 @@ include 'includes/header.php'
 						<td class="good-request__recipient"></td>
 					</tr>
 					<tr>
-						<td>Issiuntimo miestas</td>
-						<td>Pristatimo mietas</td>
+						<th>Issiuntimo miestas:</th>
+						<th>Pristatimo mietas:</th>
 					</tr>
 					<tr>
 						<td class="good-request__city--from"></td>
 						<td class="good-request__city--to"></td>
 					</tr>
 					<tr>
-						<td colspan="2">Busena</td>
+						<th colspan="2">Busena:</th>
 					</tr>
 					<tr>
 						<td colspan="2" class="good-request__status"></td>

@@ -22,10 +22,15 @@ include 'includes/header.php'
 
 <div class="dashboard">
   <div class="dashboard-title">
-    <h1>"Versmė" </h1>
-    <h3>Kurjerių valdymo sistema</h3>
+    <div class="dashboard-home">
+      <h1>"Versmė" </h1>
+      <h3>Kurjerių valdymo sistema</h3>
+      <p>Visada laiku, visada patogiai!</p>
+    </div>
+
+
     <img class="dashboard-main-img" src="./assets/img/car.png" alt="city icon">
-    <p>Visada laiku, visada patogiai!</p>
+
   </div>
 
 

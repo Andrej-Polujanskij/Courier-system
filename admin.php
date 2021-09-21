@@ -35,7 +35,7 @@ $staff = $qry2->fetch_assoc();
 
 <div class="dashboard">
   <div class="dashboard-user-complete">
-    <h1>Dashboard</h1>
+    <h1>Kurjieriu puslapis</h1>
     <hr>
 
     <div class="admin-content">

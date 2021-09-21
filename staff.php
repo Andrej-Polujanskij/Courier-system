@@ -1,63 +1,85 @@
 <?php
 include 'db_connect.php';
-include 'includes/header.php'
+include 'shared_functions.php';
+include 'includes/header.php';
 ?>
 
-<div class="flex">
-  <div>
-    <h1>Darbotojai</h1>
+
+
+<div class="aside">
+  <?php
+  include 'includes/back_btn.php'
+  ?>
+  <nav>
+    <ul class="menu">
+      <li>
+        <a href="./all_parcels.php">Visos siuntos</a>
+      </li>
+      <li>
+        <a href="./track.php">Sekti siuntą</a>
+      </li>
+      <li>
+        <a href="./index.php">Namo</a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+
+
+<div class="dashboard">
+  <div class="dashboard-user-complete">
     <div class="">
-      <ul>
-        <li>
-          <a href="./all_parcels.php">Visos siuntos</a>
-        </li>
-        <li>
-          <a href="./staff.php">Darbotojai</a>
-        </li>
-      </ul>
+      <h1>Kurjieriu informacija</h1>
+      <hr>
     </div>
 
-    <div class="flex">
-      <a href="./index.php">Namo</a>
-    </div>
-  </div>
-  <div class="dashboard-content">
 
-    <form id="new_worker">
-      <div class="flex">
-        <div class="">
-          <div class="">Darbotojo info</div>
-          <div class="">
-            <label for="name">Vardas</label>
-            <input type="text" id="name" name="worker_first_name">
+    <div class="dashboard-content">
+
+      <form id="new_worker" class="needs-validation-staff" novalidate>
+        <div class="content-subtitle">
+          <h2>Prideti nauja kurjeri</h2>
+          <hr>
+        </div>
+        <div class="flex row">
+
+          <div class="mt-3 col">
+            <label class="form-label" for="name">Vardas</label>
+            <input class="form-control" type="text" id="name" name="worker_first_name" required>
           </div>
-          <div class="">
-            <label for="last_name">Pavarde</label>
-            <input type="text" id="last_name" name="worker_last_name">
+          <div class="mt-3 col">
+            <label class="form-label" for="last_name">Pavarde</label>
+            <input class="form-control" type="text" id="last_name" name="worker_last_name" required>
           </div>
-          <div class="">
-            <label for="tel_number">Numeris</label>
-            <input type="text" id="tel_number" name="worker_tel_number">
+          <div class="mt-3 col">
+            <label class="form-label" for="tel_number">Numeris</label>
+            <input class="form-control" type="text" id="tel_number" name="worker_tel_number" required>
           </div>
-          <div class="">
-            <label for="worker_city">Miestas</label>
-            <select name="worker_city" id="worker_city">
-              <option value="1">Vilnius</option>
-              <option value="2">Kaunas</option>
+          <div class="mt-3 col">
+            <label class="form-label" for="worker_city">Miestas</label>
+            <select class="form-select" name="worker_city" id="worker_city" required>
+              <?php echo citySelectOptions(''); ?>
             </select>
           </div>
         </div>
+
+
+        <div class="">
+          <button class="btn btn-main mt-3" type="submit">Issaugoti</button>
+        </div>
+
+      </form>
+
+    </div>
+
+    <div class="dashboard-content">
+      <div class="content-subtitle">
+        <h2>Visi kurjeriai</h2>
+        <hr>
       </div>
 
-      <div class="">
-        <button type="submit">Issaugoti</button>
-      </div>
-
-    </form>
-
-
-    <div class="">
-      <table style="width:100%">
+      <table class="table table-striped" style="width:100%">
         <thead>
           <tr>
             <th>#</th>
@@ -65,7 +87,6 @@ include 'includes/header.php'
             <th>Kontaktinis numeris</th>
             <th>Darbo miestas</th>
             <th>Darbotojo veiksmai</th>
-            <th>Darbotojo siuntos</th>
           </tr>
         </thead>
         <tbody>
@@ -77,29 +98,77 @@ include 'includes/header.php'
               <td><?php echo ($row['id']) ?></td>
               <td><?php echo ($row['full_name']) ?></td>
               <td><?php echo ($row['contact_number']) ?></td>
-              <td><?php echo ($row['city_id']) ?></td>
+              <td><?php echo getCityOptions($row['city_id']) ?></td>
               <td>
-                <div class="flex">
-                  <button class="delete_worker_btn" type="button" data-id="<?php echo $row['id'] ?>">Del</button>
+                <div class="">
+                  <button title="Peržiūrėti" class="view_worker_parcels btn btn-success mr-n1" type="button" data-id="<?php echo $row['id'] ?>">
+                    <img class="max-w-20" src="./assets/img/eye.png" alt="">
+                  </button>
+                  <button title="Ištrinti" class="delete_worker_btn btn btn-danger" type="button" data-id="<?php echo $row['id'] ?>">
+                    <img class="max-w-20" src="./assets/img/bin.png" alt="">
+                  </button>
                 </div>
-              <td><button class="view_worker_parcels" type="button" data-id="<?php echo $row['id'] ?>">Perziureti</button></td>
               </td>
             </tr>
           <?php endwhile; ?>
         </tbody>
       </table>
-      
-
 
 
       <div class="full_info_table">
-        <h2>Visos darbotojo siuntos</h2>
+        <div class="content-subtitle">
+          <h2>Visos darbotojo siuntos</h2>
+          <hr>
+        </div>
 
       </div>
+    </div>
 
+
+    <div class="track-img">
+      <img src="./assets/img/worker.png" alt="track">
     </div>
   </div>
 </div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Dėmesio!</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Uždaryti"></button>
+      </div>
+      <div class="modal-body fw-bold">
+        At rikrai noryte ištrintį siuntą?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary modal-close" data-bs-dismiss="modal">Uždaryti</button>
+        <button type="button" class="btn btn-danger modal-cta">Ištrinti</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Dėmesio!</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Uždaryti"></button>
+      </div>
+      <div class="modal-body fw-bold modal-body-courier">
+        Siunta sekmingai istrinta
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary modal-close" data-bs-dismiss="modal">Uždaryti</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 <?php
 include 'includes/footer.php'
 ?>

@@ -78,7 +78,7 @@ $(document).ready(function () {
         default:
           return 'Statusas nerastas';
       }
-    } 
+    }
   }
   function getSizeOptions(id) {
     if (id !== '') {
@@ -95,11 +95,12 @@ $(document).ready(function () {
         default:
           return 'Statusas nerastas';
       }
-    } 
+    }
   }
 
 
   var forms = document.querySelectorAll('.needs-validation')
+  var forms_staff = document.querySelectorAll('.needs-validation-staff')
 
   Array.prototype.slice.call(forms)
     .forEach(function (form) {
@@ -107,11 +108,11 @@ $(document).ready(function () {
         if (!form.checkValidity()) {
           event.preventDefault()
           event.stopPropagation()
-          
+
         } else {
           event.preventDefault()
 
-        
+
           let formData = new FormData(this);
           $.ajax({
             url: 'function.php?action=save_new_parcel',
@@ -137,34 +138,48 @@ $(document).ready(function () {
     })
 
 
-  // $('#new_parcel').submit(function (event) {
-  //   event.preventDefault()
-  //   console.log('cia toliau');
+  Array.prototype.slice.call(forms_staff)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
 
-  //   let formData = new FormData(this);
-  //   $.ajax({
-  //     url: 'function.php?action=save_new_parcel',
-  //     data: formData,
-  //     cache: false,
-  //     contentType: false,
-  //     processData: false,
-  //     method: 'POST',
-  //     type: 'POST',
-  //     success: function (resp) {
-  //       alert('Data successfully saved', "success");
-  //       setTimeout(function () {
-  //         location.href = `complete.php?parcel_id=${resp}`
-  //       }, 1000)
-  //     }
-  //   })
-  // })
+        } else {
+          event.preventDefault()
 
+
+          let formData = new FormData(this);
+          $.ajax({
+            url: 'function.php?action=save_new_worker',
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            method: 'POST',
+            type: 'POST',
+            success: function (resp) {
+              $('.modal-body-courier').html('Kurjeris sekminai pridetas')
+              myModal2.toggle()
+              var modalOnClose = document.getElementById('exampleModal2')
+              modalOnClose.addEventListener('hide.bs.modal', function (event) {
+                setTimeout(function () {
+                  location.reload(true)
+                }, 500)
+              })
+            }
+          })
+        }
+        form.classList.add('was-validated')
+      }, false)
+    })
 
 
   $('#parcel_search_btn').click(function () {
     $('.bad-request').fadeOut(10)
     $('.good-request').fadeOut(10)
-    let tracking_num = $('#parcel_search').val()
+    let tracking_num = $('#parcel_search').val().replace(/\s/g, "")
+    console.log(tracking_num);
     if (tracking_num != '') {
       $.ajax({
         url: 'function.php?action=get_parcel_heistory',
@@ -176,10 +191,10 @@ $(document).ready(function () {
           } else {
             resp = JSON.parse(resp)
             $('.good-request__sender').html(resp.sender_name)
-            $('.good-request__city--from').html(resp.from_city_id)
+            $('.good-request__city--from').html(citySelectOptions(resp.from_city_id))
             $('.good-request__recipient').html(resp.recipient_name)
-            $('.good-request__city--to').html(resp.to_city_id)
-            $('.good-request__status').html(resp.status)
+            $('.good-request__city--to').html(citySelectOptions(resp.to_city_id))
+            $('.good-request__status').html(getParcelStatus(resp.status))
             $('.good-request').fadeIn(300)
           }
         }
@@ -188,13 +203,13 @@ $(document).ready(function () {
   })
 
 
-
   if ($('#exampleModal').length != 0) {
     var myModal = new bootstrap.Modal(document.getElementById('exampleModal'))
   }
   if ($('#exampleModal2').length != 0) {
     var myModal2 = new bootstrap.Modal(document.getElementById('exampleModal2'))
   }
+
 
   $('.delete_parcel_btn').click(function () {
     let post_id = $(this).attr('data-id')
@@ -225,6 +240,38 @@ $(document).ready(function () {
     })
   })
 
+
+  $('.delete_worker_btn').click(function () {
+    let post_id = $(this).attr('data-id')
+    myModal.toggle()
+
+    $('.modal-cta').click(function () {
+      myModal.hide()
+
+      $.ajax({
+        url: 'function.php?action=delete_worker',
+        data: { id: post_id },
+        method: 'POST',
+        success: function (resp) {
+          if (resp == 1) {
+
+            myModal2.show()
+
+            var modalOnClose = document.getElementById('exampleModal2')
+            modalOnClose.addEventListener('hide.bs.modal', function (event) {
+              setTimeout(function () {
+                location.reload()
+              }, 500)
+            })
+
+          }
+        }
+      })
+
+    })
+  })
+
+
   $('.set_parcel_worker').click(function () {
     let post_id_but = $(this).attr('data-id')
     $(`#parcel_worker_id--${post_id_but}`).submit(function (e) {
@@ -247,7 +294,7 @@ $(document).ready(function () {
           if (resp == 1) {
             myModal2.show()
 
-            $('.modal-body-courier').html('Kurjeris sekmingai pridetas')
+            $('.modal-body-courier').html('Kurjeris sekmingai priskirtas')
 
             var modalOnClose = document.getElementById('exampleModal2')
             modalOnClose.addEventListener('hide.bs.modal', function (event) {
@@ -260,7 +307,6 @@ $(document).ready(function () {
       })
     })
   })
-
 
 
   $('.view_parcel_btn').click(function () {
@@ -322,54 +368,11 @@ $(document).ready(function () {
 
   })
 
-  $('#new_worker').submit(function (e) {
-    e.preventDefault()
-
-    let formData = new FormData(this);
-
-    $.ajax({
-      url: 'function.php?action=save_new_worker',
-      data: formData,
-      cache: false,
-      contentType: false,
-      processData: false,
-      method: 'POST',
-      type: 'POST',
-      success: function (resp) {
-        console.log(resp);
-        alert('Data successfully saved', "success");
-        setTimeout(function () {
-          location.reload(true)
-        }, 1000)
-      }
-    })
-  })
-
-  $('.delete_worker_btn').click(function () {
-    let post_id = $(this).attr('data-id')
-
-    $.ajax({
-      url: 'function.php?action=delete_worker',
-      data: { id: post_id },
-      method: 'POST',
-      success: function (resp) {
-        if (resp == 1) {
-          alert("Data successfully deleted")
-          setTimeout(function () {
-            location.reload(true)
-          }, 1000)
-
-        }
-      }
-    })
-  })
 
   $('.add_courier').click(function () {
     $(this).hide()
     $(this).next().fadeIn(200)
   })
-
-
 
 
   $('.view_worker_parcels').click(function () {
@@ -390,7 +393,7 @@ $(document).ready(function () {
           full_info_table = `
         <table class="full_info_table--inner table table-striped" style="width:100%">
         <thead>
-          <tr>
+          <tr style="height: 100%;">
             <th>Siuntos numeris</th>
             <th>Siuntejo vardas</th>
             <th>Siuntejo tel.</th>
@@ -401,6 +404,7 @@ $(document).ready(function () {
             <th>Svoris</th>
             <th>Dydis</th>
             <th>Statusas</th>
+            <th style="height: 100%;">Veiksmai</th>
           </tr>
         </thead>
         <tbody>
@@ -410,30 +414,36 @@ $(document).ready(function () {
             <td>${resp[i].sender_contact}</td>
             <td>${resp[i].recipient_name}</td>
             <td>${resp[i].recipient_contact}</td>
-            <td>${resp[i].from_city_id}</td>
-            <td>${resp[i].to_city_id}</td>
-            <td>${resp[i].weigth_id}</td>
-            <td>${resp[i].size_id}</td>
+            <td>${citySelectOptions(resp[i].from_city_id)}</td>
+            <td>${citySelectOptions(resp[i].to_city_id)}</td>
+            <td>${getWeigtOptions(resp[i].weigth_id)}</td>
+            <td>${getSizeOptions(resp[i].size_id)}</td>
             <td id="status">
-              ${resp[i].status}
-              <button class="add_courier" type="button">Keisti statusa</button>
-              <form id="" class="parcel_worker" data-id="">
-                <select name="status" id="new_status">
-                    <option value="1">
-                          opcija 1
-                    </option>
-                    <option value="2">
-                          opcija 2
-                    </option>
-                    <option value="3">
-                          opcija 3
-                    </option>
-                    <option value="4">
-                          opcija 4
-                    </option>
-                </select>
-                <button data-id="${resp[i].id}" class="set_parcel_status" type="submit">Issaugoti</button>
-              </form>
+              ${getParcelStatus(resp[i].status)}
+            </td>
+            <td>
+            
+            <button class="add_courier btn btn-main" type="button">Keisti statusa</button>
+            <form id="" class="parcel_worker" data-id="">
+            <div class="flex">
+              <select class="form-select" name="status" id="new_status">
+                  <option value="1">
+                      Priimta
+                  </option>
+                  <option value="2">
+                      Paskirstymo vietoje
+                  </option>
+                  <option value="3">
+                      Kurjerio vežama
+                  </option>
+                  <option value="4">
+                      Pristatyta
+                  </option>
+              </select>
+              <button data-id="${resp[i].id}" class="set_parcel_status btn btn-main" type="submit">Issaugoti</button>
+              </div>
+            </form>
+            
             </td>
           </tr>
         </tbody>
@@ -463,10 +473,15 @@ $(document).ready(function () {
             success: function (resp) {
               console.log(resp)
               if (resp == 1) {
-                alert("Status successfully updated")
-                setTimeout(function () {
-                  location.reload()
-                }, 1000)
+
+                $('.modal-body-courier').html('Siuntos statusas sekmingai atnaujintas')
+                myModal2.toggle()
+                var modalOnClose = document.getElementById('exampleModal2')
+                modalOnClose.addEventListener('hide.bs.modal', function (event) {
+                  setTimeout(function () {
+                    location.reload(true)
+                  }, 500)
+                })
 
               }
             }
@@ -482,7 +497,6 @@ $(document).ready(function () {
   $('.back_btn').click(function () {
     window.history.back();
   })
-
 
 
   $('.select-for-price').change(function () {
@@ -515,13 +529,6 @@ $(document).ready(function () {
     }
 
   }
-
-  // var myModal = document.getElementById('exampleModal')
-  // var myInput = document.getElementById('myButton')
-
-  // myModal.addEventListener('shown.bs.modal', function () {
-  //   myInput.focus()
-  // })
 
 
 })

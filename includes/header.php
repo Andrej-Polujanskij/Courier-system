@@ -2,6 +2,9 @@
 <html lang="en">
 
 <head>
+<link rel="icon" 
+      type="image/png" 
+      href="./assets/img/logo2.png" />
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

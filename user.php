@@ -17,13 +17,18 @@ include 'includes/header.php'
       <li>
         <a href="./track.php">Sekti siuntą</a>
       </li>
+      <li>
+        <a href="./index.php">Namo</a>
+      </li>
     </ul>
   </nav>
 </div>
 
 <div class="dashboard">
   <div class="dashboard-user-title">
-    <div class="">
+    <h1>Klientu puslapis</h1>
+    <hr>
+    <div class="dashboard-user-title__text">
       <h1>Registruoti ir sekti siuntas dabar dar patogiau!</h1>
       <ul>
         <li>1: Pasirinkite jus dominancia paslauga</li>

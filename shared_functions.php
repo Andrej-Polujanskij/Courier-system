@@ -46,7 +46,7 @@ function citySelectOptions($id)
                 return '<option hidden disabled selected value="10">Utena</option>' . $defaultCityies;
                 break;
             default:
-            return $defaultCityies;
+                return $defaultCityies;
         }
     } else {
         return $defaultCityies;
@@ -63,7 +63,7 @@ function weigtSelectOptions($id)
         switch ($id) {
             case 1:
                 return '<option hidden disabled selected value="1">Iki 10kg</option>' . $defaultWeight;
-                break; 
+                break;
             case 2:
                 return '<option hidden disabled selected value="2">Iki 20kg</option>' . $defaultWeight;
                 break;
@@ -97,14 +97,14 @@ function sizeSelectOptions($id)
                 return '<option hidden disabled selected value="3">1.5m*1.5m</option>' . $defaultSize;
                 break;
             default:
-            return $defaultSize;
+                return $defaultSize;
         }
     } else {
         return $defaultSize;
     }
 }
 
-function getParcelStatus($id) 
+function getParcelStatus($id)
 {
     if ($id != '') {
         switch ($id) {
@@ -121,11 +121,49 @@ function getParcelStatus($id)
                 return 'Pristatyta';
                 break;
             default:
-            return 'Statusas nerastas';
+                return 'Statusas nerastas';
         }
     } else {
         return 'Statusas nerastas';
     }
 }
 
-
+function getCityOptions($id)
+{
+    if ($id !== '') {
+        switch ($id) {
+            case '1':
+                return 'Vilnius';
+                break;
+            case '2':
+                return 'Kaunas';
+                break;
+            case '3':
+                return 'Klaipėda';
+                break;
+            case '4':
+                return 'Šiauliai';
+                break;
+            case '5':
+                return 'Panevėžys';
+                break;
+            case '6':
+                return 'Alytus';
+                break;
+            case '7':
+                return 'Marijampolė';
+                break;
+            case '8':
+                return 'Mažeikiai';
+                break;
+            case '9':
+                return 'Jonava';
+                break;
+            case '10':
+                return 'Utena';
+                break;
+            default:
+                return;
+        }
+    }
+}
