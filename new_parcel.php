@@ -37,7 +37,7 @@ include 'includes/header.php';
         <a href="./track.php">Sekti siuntą</a>
       </li>
       <li>
-        <a href="./index.php">Namo</a>
+        <a href="./index.php">Pagrindinis</a>
       </li>
     </ul>
   </nav>
@@ -55,13 +55,13 @@ include 'includes/header.php';
         <input type="hidden" class="new_parcel_id" name="id" value="<?php echo isset($id) ? $id : '' ?>">
         <div class="flex row">
           <div class="col">
-            <div class="new_parcel-title">Siuniejo informacija</div>
+            <div class="new_parcel-title">Siuntėjo informacija</div>
             <div class="mt-3">
               <label class="form-label" for="name">Vardas</label>
               <input class="form-control" type="text" id="name" name="sender_first_name" value="<?php echo isset($sender_name[0]) ? $sender_name[0] : '' ?>" required>
             </div>
             <div class="mt-3">
-              <label class="form-label" for="last_name">Pavarde</label>
+              <label class="form-label" for="last_name">Pavardė</label>
               <input class="form-control" type="text" id="last_name" name="sender_last_name" value="<?php echo isset($sender_name[1]) ? $sender_name[1] : '' ?>" required>
             </div>
             <div class="mt-3">
@@ -71,13 +71,13 @@ include 'includes/header.php';
           </div>
 
           <div class="col">
-            <div class="new_parcel-title">Gaviejo informcija</div>
+            <div class="new_parcel-title">Gavėjo informacija</div>
             <div class="mt-3">
               <label class="form-label" for="name">Vardas</label>
               <input class="form-control" type="text" id="name" name="recipient_first_name" value="<?php echo isset($recipient_name[0]) ? $recipient_name[0] : '' ?>" required>
             </div>
             <div class="mt-3">
-              <label class="form-label" for="last_name">Pavarde</label>
+              <label class="form-label" for="last_name">Pavardė</label>
               <input class="form-control" type="text" id="last_name" name="recipient_last_name" value="<?php echo isset($recipient_name[1]) ? $recipient_name[1] : '' ?>" required>
             </div>
             <div class="mt-3">
@@ -91,14 +91,14 @@ include 'includes/header.php';
           <div class="new_parcel-title">Siuntinio informacija</div>
           <div class=" row mt-3">
             <div class="col">
-              <label class="form-label" for="from_city">Is kurio mesto</label>
+              <label class="form-label" for="from_city">Iš kurio miesto</label>
               <select class="form-select city-select" name="from_city" id="" required>
                 <?php echo citySelectOptions(isset($from_city_id) ? $from_city_id : ''); ?>
               </select>
             </div>
 
             <div class="col">
-              <label class="form-label" for="to_city">I kuri miesta</label>
+              <label class="form-label" for="to_city">Į kurį miestą</label>
               <select class="form-select city-select" name="to_city" id="" required>
                 <?php echo citySelectOptions(isset($to_city_id) ? $to_city_id : ''); ?>
               </select>
@@ -107,14 +107,14 @@ include 'includes/header.php';
 
           <div class=" row mt-3">
             <div class="col">
-              <label class="form-label" for="to_city">Sintos svoris</label>
+              <label class="form-label" for="to_city">Siuntos svoris</label>
               <select class="form-select select-for-price form-select-weight" name="weight" id="" required>
                 <?php echo weigtSelectOptions(isset($weigth_id) ? $weigth_id : ''); ?>
               </select>
             </div>
 
             <div class="col">
-              <label class="form-label" for="to_city">Siuntos didis</label>
+              <label class="form-label" for="to_city">Siuntos dydis</label>
               <select class="form-select select-for-price form-select-size" name="size" id="" required>
                 <?php echo sizeSelectOptions(isset($size_id) ? $size_id : ''); ?>
               </select>
@@ -142,14 +142,14 @@ include 'includes/header.php';
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Demesio!</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Dėmesio!</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            Siunta sekminai issaugota
+            Siunta sėkmingai išsaugota
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Uždaryti</button>
           </div>
         </div>
       </div>

@@ -25,7 +25,7 @@ $staff = $qry2->fetch_assoc();
         <a href="./staff.php">Kurjeriai</a>
       </li>
       <li>
-        <a href="./index.php">Namo</a>
+        <a href="./index.php">Pagrindinis</a>
       </li>
     </ul>
   </nav>
@@ -35,7 +35,7 @@ $staff = $qry2->fetch_assoc();
 
 <div class="dashboard">
   <div class="dashboard-user-complete">
-    <h1>Kurjieriu puslapis</h1>
+    <h1>Kurjerių puslapis</h1>
     <hr>
 
     <div class="admin-content">
@@ -44,7 +44,7 @@ $staff = $qry2->fetch_assoc();
         <div class="item-col">
           <div class="item-col__count"><?php echo $parcels['total']; ?></div>
           <div class="item-col__text">
-            Is viso siuntu
+            Iš viso siuntų
           </div>
         </div>
         <div class="item-col item-col__img">
@@ -56,7 +56,7 @@ $staff = $qry2->fetch_assoc();
         <div class="item-col">
           <div class="item-col__count"><?php echo $staff['total']; ?></div>
           <div class="item-col__text">
-            Is viso kurjeriu
+            Iš viso kurjerių
           </div>
         </div>
         <div class="item-col item-col__img">
@@ -69,7 +69,7 @@ $staff = $qry2->fetch_assoc();
         <div class="item-col">
           <div class="item-col__count">10</div>
           <div class="item-col__text">
-            Is viso miestu
+            Iš viso miestų
           </div>
         </div>
         <div class="item-col item-col__img">

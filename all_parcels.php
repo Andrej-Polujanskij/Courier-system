@@ -13,13 +13,13 @@ include 'includes/header.php';
   <nav>
     <ul class="menu">
       <li>
-        <a href="./new_parcel.php">Nauja siuntą</a>
+        <a href="./new_parcel.php">Nauja siunta</a>
       </li>
       <li>
         <a href="./staff.php">Kurjeriai</a>
       </li>
       <li>
-        <a href="./index.php">Namo</a>
+        <a href="./index.php">Pagrindinis</a>
       </li>
     </ul>
   </nav>
@@ -38,8 +38,8 @@ include 'includes/header.php';
         <tr>
           <th>#</th>
           <th>Siuntos numeris</th>
-          <th>Siuntejo vardas</th>
-          <th>Gavejo vardas</th>
+          <th>Siuntėjo vardas</th>
+          <th>Gavėjo vardas</th>
           <th>Siuntos statusas</th>
           <th>Siuntos veiksmai</th>
           <th>Priskirtas kurjeris</th>
@@ -77,7 +77,7 @@ include 'includes/header.php';
                 $from_city_id = $row['from_city_id'];
                 $qry2 = $conn->query("SELECT id, full_name  FROM staff where city_id = $from_city_id");
               ?>
-                <button class="add_courier btn btn-main" type="button">Prideti kurjeri</button>
+                <button class="add_courier btn btn-main" type="button">Pridėti kurjerį</button>
 
                 <?php
                 if ($qry2->num_rows > 0) {
@@ -92,13 +92,13 @@ include 'includes/header.php';
                         </option>
                       <?php endwhile; ?>
                     </select>
-                    <button data-id="<?php echo $row['id'] ?>" class="set_parcel_worker btn btn-main mt-1" type="submit">Issaugoti</button>
+                    <button data-id="<?php echo $row['id'] ?>" class="set_parcel_worker btn btn-main mt-1" type="submit">Išsaugoti</button>
                   </form>
                 <?php
                 } else {
                 ?>
                   <div class="parcel_worker ">
-                    Kurjerio is sito miesto nera
+                    Kurjerio iš šito miesto nėra
                   </div>
                 <?php
                 } ?>
@@ -139,7 +139,7 @@ include 'includes/header.php';
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Uždaryti"></button>
         </div>
         <div class="modal-body fw-bold">
-          At rikrai noryte ištrintį siuntą?
+          Ar tikrai norite ištrinti siuntą?
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary modal-close" data-bs-dismiss="modal">Uždaryti</button>
@@ -158,7 +158,7 @@ include 'includes/header.php';
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Uždaryti"></button>
       </div>
       <div class="modal-body fw-bold modal-body-courier">
-        Siunta sekmingai istrinta
+        Siunta sėkmingai ištrinta
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary modal-close" data-bs-dismiss="modal">Uždaryti</button>

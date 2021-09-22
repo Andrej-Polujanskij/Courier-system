@@ -12,10 +12,10 @@ include 'includes/header.php'
 	<nav>
 		<ul class="menu">
 			<li>
-				<a href="./new_parcel.php">Nauja siuntą</a>
+				<a href="./new_parcel.php">Nauja siunta</a>
 			</li>
 			<li>
-				<a href="./index.php">Namo</a>
+				<a href="./index.php">Pagrindinis</a>
 			</li>
 		</ul>
 	</nav>
@@ -24,16 +24,16 @@ include 'includes/header.php'
 <div class="dashboard">
 	<div class="dashboard-user-complete">
 
-		<h1>Tikrinti siunta</h1>
+		<h1>Tikrinti siuntą</h1>
 		<hr>
 
 		<div class="track-form">
 			<label class="form-label" for="parcel_search">
-				Iveskyte siuntos numeri
+				Įveskite siuntos numerį
 			</label>
 			<input type="search" class="form-control" id="parcel_search" name="parcel_search">
 			<div class="mt-3">
-				<button class="btn btn-main" id="parcel_search_btn" type="submit">Ieskoti</button>
+				<button class="btn btn-main" id="parcel_search_btn" type="submit">Ieškoti</button>
 			</div>
 		</div>
 
@@ -64,8 +64,8 @@ include 'includes/header.php'
 			<table cellspacing="0" cellpadding="0" class="table table-striped">
 				<thead>
 					<tr>
-						<th scope="col">Siuntejas:</th>
-						<th scope="col">Gavejas:</th>
+						<th scope="col">Siuntėjas:</th>
+						<th scope="col">Gavėjas:</th>
 
 					</tr>
 				</thead>
@@ -75,15 +75,15 @@ include 'includes/header.php'
 						<td class="good-request__recipient"></td>
 					</tr>
 					<tr>
-						<th>Issiuntimo miestas:</th>
-						<th>Pristatimo mietas:</th>
+						<th>Išsiuntimo miestas:</th>
+						<th>Pristatymo miestas:</th>
 					</tr>
 					<tr>
 						<td class="good-request__city--from"></td>
 						<td class="good-request__city--to"></td>
 					</tr>
 					<tr>
-						<th colspan="2">Busena:</th>
+						<th colspan="2">Būsena:</th>
 					</tr>
 					<tr>
 						<td colspan="2" class="good-request__status"></td>

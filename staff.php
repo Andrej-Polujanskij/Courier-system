@@ -19,7 +19,7 @@ include 'includes/header.php';
         <a href="./track.php">Sekti siuntą</a>
       </li>
       <li>
-        <a href="./index.php">Namo</a>
+        <a href="./index.php">Pagrindinis</a>
       </li>
     </ul>
   </nav>
@@ -30,7 +30,7 @@ include 'includes/header.php';
 <div class="dashboard">
   <div class="dashboard-user-complete">
     <div class="">
-      <h1>Kurjieriu informacija</h1>
+      <h1>Kurjerių informacija</h1>
       <hr>
     </div>
 
@@ -39,7 +39,7 @@ include 'includes/header.php';
 
       <form id="new_worker" class="needs-validation-staff" novalidate>
         <div class="content-subtitle">
-          <h2>Prideti nauja kurjeri</h2>
+          <h2>Pridėti naują kurjerį</h2>
           <hr>
         </div>
         <div class="flex row">
@@ -49,7 +49,7 @@ include 'includes/header.php';
             <input class="form-control" type="text" id="name" name="worker_first_name" required>
           </div>
           <div class="mt-3 col">
-            <label class="form-label" for="last_name">Pavarde</label>
+            <label class="form-label" for="last_name">Pavardė</label>
             <input class="form-control" type="text" id="last_name" name="worker_last_name" required>
           </div>
           <div class="mt-3 col">
@@ -66,7 +66,7 @@ include 'includes/header.php';
 
 
         <div class="">
-          <button class="btn btn-main mt-3" type="submit">Issaugoti</button>
+          <button class="btn btn-main mt-3" type="submit">Išsaugoti</button>
         </div>
 
       </form>
@@ -83,10 +83,10 @@ include 'includes/header.php';
         <thead>
           <tr>
             <th>#</th>
-            <th>Darbotojas</th>
+            <th>Darbuotojas</th>
             <th>Kontaktinis numeris</th>
             <th>Darbo miestas</th>
-            <th>Darbotojo veiksmai</th>
+            <th>Darbuotojo veiksmai</th>
           </tr>
         </thead>
         <tbody>
@@ -117,7 +117,7 @@ include 'includes/header.php';
 
       <div class="full_info_table">
         <div class="content-subtitle">
-          <h2>Visos darbotojo siuntos</h2>
+          <h2>Visos darbuotojo siuntos</h2>
           <hr>
         </div>
 
@@ -140,7 +140,7 @@ include 'includes/header.php';
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Uždaryti"></button>
       </div>
       <div class="modal-body fw-bold">
-        At rikrai noryte ištrintį siuntą?
+        Ar tikrai norite ištrinti siuntą?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary modal-close" data-bs-dismiss="modal">Uždaryti</button>
@@ -158,7 +158,7 @@ include 'includes/header.php';
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Uždaryti"></button>
       </div>
       <div class="modal-body fw-bold modal-body-courier">
-        Siunta sekmingai istrinta
+        Siunta sėkmingai ištrinta
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary modal-close" data-bs-dismiss="modal">Uždaryti</button>

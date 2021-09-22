@@ -14,13 +14,13 @@ include 'includes/header.php'
     <nav>
       <ul class="menu">
         <li>
-          <a href="./new_parcel.php">Nauja siuntą</a>
+          <a href="./new_parcel.php">Nauja siunta</a>
         </li>
         <li>
           <a href="./track.php">Sekti siuntą</a>
         </li>
         <li>
-          <a href="./index.php">Namo</a>
+          <a href="./index.php">Pagrindinis</a>
         </li>
       </ul>
     </nav>
@@ -30,11 +30,11 @@ include 'includes/header.php'
     <?php if(isset($_GET['parcel_id']) && $_GET['parcel_id'] != '' ){ ?>
     <div class="dashboard-user-complete">
 
-      <h1>Siunta sekmingai issiusta</h1>
+      <h1>Siunta sėkmingai išsiųsta</h1>
       <hr>
 
       <div class="complete-text">
-        Zemiau jusu siuntos numeris su kurio galesite sekti siunta 
+        Žemiau, Jūsų siuntos numeris, su kuriuo galėsite sekti siuntą 
       </div>
 
       <div class="complete-number">

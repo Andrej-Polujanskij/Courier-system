@@ -289,7 +289,7 @@ $(document).ready(function () {
           if (resp == 1) {
             myModal2.show()
 
-            $('.modal-body-courier').html('Kurjeris sekmingai priskirtas')
+            $('.modal-body-courier').html('Kurjeris sėkmingai priskirtas')
 
             var modalOnClose = document.getElementById('exampleModal2')
             modalOnClose.addEventListener('hide.bs.modal', function (event) {
@@ -322,11 +322,11 @@ $(document).ready(function () {
           <tr>
             <th>#</th>
             <th>Siuntos numeris</th>
-            <th>Siuntejo vardas</th>
-            <th>Siuntejo tel.</th>
-            <th>Gavejo vardas</th>
-            <th>Gavejo tel.</th>
-            <th>Issiuntimo miestas</th>
+            <th>Siuntėjo vardas</th>
+            <th>Siuntėjo tel.</th>
+            <th>Gavėjo vardas</th>
+            <th>Gavėjo tel.</th>
+            <th>Išsiuntimo miestas</th>
             <th>Gavimo miestas</th>
             <th>Statusas</th>
             <th>Svoris</th>
@@ -388,11 +388,11 @@ $(document).ready(function () {
         <thead>
           <tr style="height: 100%;">
             <th>Siuntos numeris</th>
-            <th>Siuntejo vardas</th>
-            <th>Siuntejo tel.</th>
-            <th>Gavejo vardas</th>
-            <th>Gavejo tel.</th>
-            <th>Issiuntimo miestas</th>
+            <th>Siuntėjo vardas</th>
+            <th>Siuntėjo tel.</th>
+            <th>Gavėjo vardas</th>
+            <th>Gavėjo tel.</th>
+            <th>Išsiuntimo miestas</th>
             <th>Gavimo miestas</th>
             <th>Svoris</th>
             <th>Dydis</th>
@@ -416,7 +416,7 @@ $(document).ready(function () {
             </td>
             <td>
             
-            <button class="add_courier btn btn-main" type="button">Keisti statusa</button>
+            <button class="add_courier btn btn-main" type="button">Keisti statusą</button>
             <form id="" class="parcel_worker" data-id="">
             <div class="flex">
               <select class="form-select" name="status" id="new_status">
@@ -433,7 +433,7 @@ $(document).ready(function () {
                       Pristatyta
                   </option>
               </select>
-              <button data-id="${resp[i].id}" class="set_parcel_status btn btn-main" type="submit">Issaugoti</button>
+              <button data-id="${resp[i].id}" class="set_parcel_status btn btn-main" type="submit">Išsaugoti</button>
               </div>
             </form>
             
